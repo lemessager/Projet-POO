@@ -71,7 +71,7 @@ public class Fenetre extends JFrame implements ActionListener {
         fin=new JButton("fin");
         fin.addActionListener(this);
         panelBoutons.add(fin);
-        reduction=new JTextField("reduction");
+        reduction=new JTextField(" Code de Reduction ");
         reduction.addActionListener(this);
         panelBoutons.add(reduction);
         add(panelBoutons);
@@ -80,11 +80,14 @@ public class Fenetre extends JFrame implements ActionListener {
          }
      @Override
      public void actionPerformed(ActionEvent a){
-         DefaultListModel listModel =  (DefaultListModel) list.getModel();
-         int selectedIndex = list.getSelectedIndex();
+    
          if (a.getSource()==retirer){
-            
+             DefaultListModel listModel =  (DefaultListModel) list.getModel();
+             try {
+             int selectedIndex = list.getSelectedIndex();
              listModel.remove(list.getSelectedIndex());
+             }
+             catch(Exception e){}
              
          }
          
