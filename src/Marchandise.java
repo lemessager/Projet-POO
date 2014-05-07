@@ -35,6 +35,15 @@ public class Marchandise {
 			return true;
 		return false;
 	}
+	
+	public String getTaille(){
+	    if (estUnVetement()){
+	        Vetement vet = (Vetement)this;
+	        return vet.getTaille();
+	    }
+	    else
+	        return "0";
+	}
 
 	@Override
 	public String toString() {// renvoie le nom de la marchandise et de sa reference

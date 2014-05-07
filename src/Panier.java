@@ -15,14 +15,27 @@ public class Panier {
 	private HashMap<String,ArrayList<Marchandise>>  panier=new HashMap<String,ArrayList<Marchandise>> ();
 	Magasin deroute;
 	
-	public String[] venteArray(){
-	    String[] venteListe = new String[vente.size()];
+	public MarchandiseQuant[] venteArray(){
+	    MarchandiseQuant[] venteListe = new MarchandiseQuant[vente.size()];
 	    int i=0;
 	    for(Marchandise m : vente.keySet()){
-	        venteListe[i]=""+m.toString()+" q="+ vente.get(m)+";\n";
+	        venteListe[i]=new MarchandiseQuant(vente.get(m),m);
+	        //venteListe[i]=""+m.toString()+" q="+ vente.get(m)+";\n";
 	        i++;
 	    }
 	    return venteListe;
+	}
+	
+	public class MarchandiseQuant {
+	    public MarchandiseQuant(Integer integer,Marchandise marchandise) {
+           this.marchandise=marchandise;
+           this.quantite=quantite;
+        }
+        public Marchandise marchandise;
+	    public int quantite;
+	    public String toString(){
+	        return marchandise+"; q="+quantite;
+	    }
 	}
 	
 	public Panier(Magasin mag){
@@ -65,7 +78,8 @@ public class Panier {
 	//Met à jour la quantité après l'achat
 	public boolean achat(String ref,String taille,int quant){
 		Marchandise m=refVersBonneMarchandise(taille, ref);
-		if(!vente.containsKey(m))
+		//if((!vente.containsKey(m) && quant>0 && ((taille.equals("0") && quant<=deroute.getEntrepot().get(m)) || (quant<=deroute.getEntrepotAvecTaille().get(m) && !taille.equals("0")))))
+		if((!vente.containsKey(m)))
 			vente.put(m,0);
 		deroute.setObjetEnQuestion(m);
 		if(deroute.estUnCommandable()){

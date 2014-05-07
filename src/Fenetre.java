@@ -47,7 +47,7 @@ public class Fenetre extends JFrame implements ActionListener {
         inter.panier();
         list = new JList();
         DefaultListModel model = new DefaultListModel();
-        for (String element : inter.getP().venteArray())
+        for (Panier.MarchandiseQuant element : inter.getP().venteArray())
             model.addElement(element);
 
         
@@ -78,17 +78,30 @@ public class Fenetre extends JFrame implements ActionListener {
         
         
          }
+    
+
+    
      @Override
      public void actionPerformed(ActionEvent a){
     
          if (a.getSource()==retirer){
              DefaultListModel listModel =  (DefaultListModel) list.getModel();
-             try {
-             int selectedIndex = list.getSelectedIndex();
-             listModel.remove(list.getSelectedIndex());
-             }
-             catch(Exception e){}
              
+             int selectedIndex = list.getSelectedIndex();
+             Panier.MarchandiseQuant marchandise = (Panier.MarchandiseQuant)list.getSelectedValue();
+        
+             try{
+             inter.getP().removePanier(marchandise.marchandise.getReference(),marchandise.marchandise.getTaille(),1);
+             }
+             catch (Exception e){}
+             listModel.remove(list.getSelectedIndex());
+             
+             DefaultListModel model = new DefaultListModel();
+             for (Panier.MarchandiseQuant element : inter.getP().venteArray()){
+                 System.out.println(inter.getP());
+                 model.addElement(element);  
+             }
+             list.setModel(model);
          }
          
     	 /*if(a.getSource() == retirer){
